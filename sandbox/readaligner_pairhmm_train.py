@@ -6,10 +6,7 @@ import argparse
 import collections
 from math import log
 import json
-try:
-    import pysam
-except:
-    pass
+from simplesam import Reader
 
 cigar_to_state = {0: 'M', 1: 'Ir', 2: 'Ig'}
 
@@ -41,7 +38,7 @@ def main():
     args = parser.parse_args()
 
     ht = khmer.load_counting_hash(args.ht)
-    samfile = pysam.Samfile(args.bam_file)
+    samfile = Reader(open(args.bam_file, 'r'))
 
     k = ht.ksize()
     seq_cnt = 0

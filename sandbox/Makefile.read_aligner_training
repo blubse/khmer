@@ -1,4 +1,4 @@
-KHMER= ../khmer
+KHMER= ../
 
 KSIZE= 30
 HASH_SIZE= 4e8
