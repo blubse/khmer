@@ -46,7 +46,6 @@ from __future__ import print_function
 import khmer
 import sys
 import threading
-import gc
 import os.path
 import os
 import textwrap
@@ -55,8 +54,6 @@ from khmer.khmer_args import (build_nodegraph_args, report_on_config, info,
                               add_threading_args, sanitize_help)
 import glob
 from khmer.kfile import check_input_files, check_space
-import re
-import platform
 
 # stdlib queue module was renamed on Python 3
 try:
@@ -259,4 +256,5 @@ def main():  # pylint: disable=too-many-locals,too-many-statements
 if __name__ == '__main__':
     main()
 
-# vim: set ft=python ts=4 sts=4 sw=4 et tw=79:
+# vim: set filetype=python tabstop=4 softtabstop=4 shiftwidth=4 expandtab:
+# vim: set textwidth=79:

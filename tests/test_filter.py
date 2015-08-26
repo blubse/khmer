@@ -32,11 +32,12 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # Contact: khmer-project@idyll.org
+# pylint: disable=missing-docstring,no-member
 from __future__ import print_function
 from __future__ import absolute_import
+
 import khmer
 from screed.fasta import fasta_iter
-from nose.plugins.attrib import attr
 
 from . import khmer_tst_utils as utils
 
@@ -46,46 +47,42 @@ def teardown():
 
 
 def load_fa_seq_names(filename):
-    fp = open(filename)
-    records = list(fasta_iter(fp))
+    filep = open(filename)
+    records = list(fasta_iter(filep))
     names = [r['name'] for r in records]
     return names
 
 
-class Test_Filter(object):
+def test_abund():
+    countgraph = khmer.Countgraph(10, 4 ** 10, 1)
 
-    def test_abund(self):
-        ht = khmer.Countgraph(10, 4 ** 10, 1)
+    filename = utils.get_test_data('test-abund-read.fa')
+    outname = utils.get_temp_filename('test_abund.out')
 
-        filename = utils.get_test_data('test-abund-read.fa')
-        outname = utils.get_temp_filename('test_abund.out')
+    countgraph.consume_fasta(filename)
+    try:
+        countgraph.consume_fasta()
+        assert 0, "should fail"
+    except TypeError as err:
+        print(str(err))
+    try:
+        countgraph.consume_fasta("nonexistent")
+        assert 0, "should fail"
+    except OSError as err:
+        print(str(err))
+    countgraph.output_fasta_kmer_pos_freq(filename, outname)
+    try:
+        countgraph.output_fasta_kmer_pos_freq()
+        assert 0, "should fail"
+    except TypeError as err:
+        print(str(err))
 
-        ht.consume_fasta(filename)
-        try:
-            ht.consume_fasta()
-            assert 0, "should fail"
-        except TypeError as err:
-            print(str(err))
-        try:
-            ht.consume_fasta("nonexistent")
-            assert 0, "should fail"
-        except OSError as err:
-            print(str(err))
-        ht.output_fasta_kmer_pos_freq(filename, outname)
-        try:
-            ht.output_fasta_kmer_pos_freq()
-            assert 0, "should fail"
-        except TypeError as err:
-            print(str(err))
+    with open(outname, "r") as filep:
 
-        fd = open(outname, "r")
-
-        output = fd.readlines()
+        output = filep.readlines()
         assert len(output) == 1
 
         output = output[0]
         output = output.strip().split()
 
         assert ['1'] * (114 - 10 + 1) == output
-
-        fd.close()

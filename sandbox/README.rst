@@ -65,7 +65,7 @@ Scripts with recipes:
 
 To keep, document, and build recipes for:
 
-* `make-coverage.py - RPKM calculation script
+* make-coverage.py - RPKM calculation script
 * abundance-hist-by-position.py - look at abundance of k-mers by position within read; use with fasta-to-abundance-hist.py
 * assemstats3.py - print out assembly statistics
 * build-sparse-graph.py - code for building a sparse graph (by Camille Scott)
@@ -76,7 +76,6 @@ To keep, document, and build recipes for:
 * filter-below-abund.py - like filter-abund, but trim off high-abundance k-mers
 * filter-median-and-pct.py - see blog post on Trinity in silico norm (http://ivory.idyll.org/blog/trinity-in-silico-normalize.html)
 * filter-median.py - see blog post on Trinity in silico norm (http://ivory.idyll.org/blog/trinity-in-silico-normalize.html)
-* find-high-abund-kmers.py - extract high-abundance k-mers into a list
 * graph-size.py - filter reads based on size of connected graph
 * hi-lo-abundance-by-position.py - look at high and low-abundance k-mers by position within read
 * memusg - memory usage analysis
@@ -106,6 +105,11 @@ Good ideas to rewrite using newer tools/approaches:
 * split-sequences-by-length.py - break up short reads by length
 
 ----
+
+Present in commit 94d679f2e2fe8ffe43d55f7220d8c145d853458a but removed
+thereafter:
+
+* `find-high-abund-kmers.py <https://github.com/dib-lab/khmer/blob/94d679f2e2fe8ffe43d55f7220d8c145d853458a/sandbox/find-high-abund-kmers.py>`__ - extract high-abundance k-mers into a list
 
 Present in commit 19b0a09353cddc45070edcf1283cae2c83c13b0e but removed
 thereafter:

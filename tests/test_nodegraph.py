@@ -32,7 +32,7 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 # Contact: khmer-project@idyll.org
-# pylint: disable=missing-docstring,protected-access,no-member,
+# pylint: disable=missing-docstring,protected-access,no-member,invalid-name
 
 from __future__ import print_function
 from __future__ import absolute_import
@@ -53,7 +53,7 @@ def teardown():
 @attr('huge')
 def test_toobig():
     try:
-        pt = khmer.Nodegraph(32, 1e13, 1)
+        khmer.Nodegraph(32, 1e13, 1)
         assert 0, "This should fail"
     except MemoryError as err:
         print(str(err))
@@ -169,8 +169,8 @@ def test_bloom_python_1():
     for _, record in enumerate(screed.open(filename)):
         sequence = record.sequence
         seq_len = len(sequence)
-        for n in range(0, seq_len + 1 - ksize):
-            kmer = sequence[n:n + ksize]
+        for num in range(0, seq_len + 1 - ksize):
+            kmer = sequence[num:num + ksize]
             if not nodegraph.get(kmer):
                 n_unique += 1
             nodegraph.count(kmer)
@@ -202,8 +202,6 @@ def test_bloom_c_1():
 
 def test_n_occupied_2():  # simple one
     ksize = 4
-    htable_size = 10  # use 11
-    num_nodegraphs = 1
 
     nodegraph = khmer._Nodegraph(ksize, [11])
     nodegraph.count('AAAA')  # 00 00 00 00 = 0
@@ -740,7 +738,7 @@ def _build_testfiles():
     # nodegraph file
 
     inpath = utils.get_test_data('random-20-a.fa')
-    hi = khmer.Nodegraph(12, 2)
+    hi = khmer._Nodegraph(12, 2)
     hi.consume_fasta(inpath)
     hi.save('/tmp/goodversion-k12.htable')
 
@@ -890,7 +888,7 @@ def test_tagset_filetype_check():
 
 def test_bad_primes_list():
     try:
-        coutingtable = khmer._Nodegraph(31, ["a", "b", "c"], 1)
+        khmer._Nodegraph(31, ["a", "b", "c"], 1)
         assert 0, "Bad primes list should fail"
     except TypeError as e:
         print(str(e))
@@ -915,7 +913,7 @@ def test_consume_absentfasta_with_reads_parser():
 
 def test_bad_primes():
     try:
-        countgraph = khmer._Nodegraph.__new__(
+        khmer._Nodegraph.__new__(
             khmer._Nodegraph, 6, ["a", "b", "c"])
         assert 0, "this should fail"
     except TypeError as e:
@@ -965,7 +963,7 @@ def test_n_occupied_vs_countgraph():
     assert nodegraph.n_unique_kmers() == 0, nodegraph.n_unique_kmers()
     assert countgraph.n_unique_kmers() == 0, countgraph.n_unique_kmers()
 
-    for n, record in enumerate(screed.open(filename)):
+    for _, record in enumerate(screed.open(filename)):
         nodegraph.consume(record.sequence)
         countgraph.consume(record.sequence)
 
@@ -991,7 +989,7 @@ def test_n_occupied_vs_countgraph_another_size():
     assert nodegraph.n_unique_kmers() == 0, nodegraph.n_unique_kmers()
     assert countgraph.n_unique_kmers() == 0, countgraph.n_unique_kmers()
 
-    for n, record in enumerate(screed.open(filename)):
+    for _, record in enumerate(screed.open(filename)):
         nodegraph.consume(record.sequence)
         countgraph.consume(record.sequence)
 
