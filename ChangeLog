@@ -1,4 +1,4 @@
-2015-08-19  Michael R. Crusoe  <crusoe@ucdavis.edu>
+2015-09-01  Michael R. Crusoe  <crusoe@ucdavis.edu>
 
    * .dictionary, pylintrc:  added `pylint` configuration that checks spelling
    in Python files. Added dictionary of project specific words.
