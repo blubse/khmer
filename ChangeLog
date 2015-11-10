@@ -1,5 +1,8 @@
-2015-08-14  Luiz Irber  <khmer@luizirber.org>
+2015-12-17  Michael R. Crusoe  <crusoe@ucdavis.edu>
 
+   * README.rst: add depsy badge
+
+2015-08-14  Luiz Irber  <khmer@luizirber.org>
    * lib/subset.cc: check iterator before decrementing in
    repartition_largest_partition
 
