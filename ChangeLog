@@ -1,3 +1,7 @@
+2016-01-29  Luiz Irber  <khmer@luizirber.org>
+
+   * jenkins-build.sh: add codecov coverage upload tool.
+
 2015-08-14  Luiz Irber  <khmer@luizirber.org>
 
    * lib/subset.cc: check iterator before decrementing in
