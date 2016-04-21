@@ -53,7 +53,7 @@ import textwrap
 from khmer import khmer_args
 from khmer.khmer_args import (build_counting_args, add_threading_args,
                               report_on_config, info, calculate_graphsize,
-                              sanitize_help)
+                              sanitize_help, parse_humanfriendly_mem)
 from khmer.kfile import (check_input_files, check_space_for_graph)
 
 
@@ -101,6 +101,8 @@ def get_parser():
 
 
 def main():  # pylint: disable=too-many-locals,too-many-branches
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('abundance-dist-single.py', ['counting', 'SeqAn'])
     args = sanitize_help(get_parser()).parse_args()
     report_on_config(args)

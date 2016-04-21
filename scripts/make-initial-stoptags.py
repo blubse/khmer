@@ -45,7 +45,9 @@ import sys
 import textwrap
 import khmer
 from khmer import khmer_args
-from khmer.khmer_args import (build_counting_args, info, sanitize_help)
+from khmer.khmer_args import (build_counting_args, info, sanitize_help,
+                              parse_humanfriendly_mem)
+
 from khmer.kfile import check_input_files
 
 DEFAULT_SUBSET_SIZE = int(1e4)
@@ -99,6 +101,7 @@ def get_parser():
 
 
 def main():
+    sys.argv = parse_humanfriendly_mem(sys.argv)
 
     info('make-initial-stoptags.py', ['graph'])
     args = sanitize_help(get_parser()).parse_args()

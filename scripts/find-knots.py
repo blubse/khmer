@@ -53,7 +53,7 @@ from khmer.kfile import check_input_files, check_space
 from khmer import khmer_args
 from khmer.khmer_args import (build_counting_args, info, add_loadgraph_args,
                               report_on_config, sanitize_help,
-                              ComboFormatter)
+                              ComboFormatter, parse_humanfriendly_mem)
 
 # counting hash parameters.
 DEFAULT_COUNTING_HT_SIZE = 3e6                # number of bytes
@@ -107,6 +107,8 @@ def get_parser():
 
 
 def main():
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('find-knots.py', ['graph'])
     parser = get_parser()
     parser.epilog = parser.epilog.replace(

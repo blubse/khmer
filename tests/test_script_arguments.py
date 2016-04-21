@@ -59,6 +59,162 @@ if sys.version_info.major > 2:
     long = int
 
 
+def test_parse_humanfriendly_mem():
+    save_stderr, sys.stderr = sys.stderr, io.StringIO()
+    argv = ['-M', '42']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+
+        assert argv == ['-M', '42']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2k']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2M']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2g']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2T']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2p']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2E']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2Z']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000000000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2y']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2000000000000000000000000']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2ki']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2048']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2Mi']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2097152']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2gi']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2147483648']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2Ti']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2199023255552']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2pi']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2251799813685248']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2Ei']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2305843009213693952']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+    argv = ['-M', '2Zi']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2361183241434822606848']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+    argv = ['-M', '2yi']
+    try:
+        argv = khmer.khmer_args.parse_humanfriendly_mem(argv)
+        assert argv == ['-M', '2417851639229258349412352']
+    except SystemExit as e:
+        print(str(e))
+    finally:
+        sys.stderr = save_stderr
+
+
 def test_check_space():
     fakelump_fa = utils.get_test_data('fakelump.fa')
 

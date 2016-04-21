@@ -56,7 +56,7 @@ from khmer import khmer_args
 from contextlib import contextmanager
 from khmer.khmer_args import (build_counting_args, add_loadgraph_args,
                               report_on_config, info, calculate_graphsize,
-                              sanitize_help)
+                              sanitize_help, parse_humanfriendly_mem)
 import argparse
 from khmer.kfile import (check_space, check_space_for_graph,
                          check_valid_file_exists, add_output_compression_type,
@@ -307,6 +307,8 @@ def get_parser():
 
 
 def main():  # pylint: disable=too-many-branches,too-many-statements
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('normalize-by-median.py', ['diginorm'])
     parser = sanitize_help(get_parser())
     args = parser.parse_args()

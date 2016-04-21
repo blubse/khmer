@@ -52,7 +52,8 @@ import os
 import textwrap
 from khmer import khmer_args
 from khmer.khmer_args import (build_nodegraph_args, report_on_config, info,
-                              add_threading_args, sanitize_help)
+                              add_threading_args, sanitize_help,
+                              parse_humanfriendly_mem)
 import glob
 from khmer.kfile import check_input_files, check_space
 import re
@@ -134,6 +135,8 @@ def get_parser():
 
 # pylint: disable=too-many-branches
 def main():  # pylint: disable=too-many-locals,too-many-statements
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('do-partition.py', ['graph'])
     args = sanitize_help(get_parser()).parse_args()
 

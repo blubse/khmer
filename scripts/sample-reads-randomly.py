@@ -46,7 +46,6 @@ By default take one subsample, but take -S samples if specified.
 Reads FASTQ and FASTA input, retains format for output.
 """
 from __future__ import print_function
-
 import argparse
 import screed
 import os.path
@@ -58,7 +57,7 @@ from khmer import __version__
 from khmer.kfile import (check_input_files, add_output_compression_type,
                          get_file_writer)
 from khmer.khmer_args import (info, sanitize_help, ComboFormatter,
-                              _VersionStdErrAction)
+                              _VersionStdErrAction, parse_humanfriendly_mem)
 from khmer.utils import write_record, broken_paired_reader
 
 DEFAULT_NUM_READS = int(1e5)
@@ -109,6 +108,8 @@ def get_parser():
 
 
 def main():
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('sample-reads-randomly.py')
     parser = get_parser()
     parser.epilog = parser.epilog.replace(

@@ -55,7 +55,7 @@ from khmer.thread_utils import ThreadedSequenceProcessor, verbose_loader
 from khmer import khmer_args
 from khmer.khmer_args import (build_counting_args, report_on_config,
                               add_threading_args, info, calculate_graphsize,
-                              sanitize_help)
+                              sanitize_help, parse_humanfriendly_mem)
 from khmer.kfile import (check_input_files, check_space,
                          check_space_for_graph,
                          add_output_compression_type,
@@ -97,6 +97,8 @@ def get_parser():
 
 
 def main():
+    sys.argv = parse_humanfriendly_mem(sys.argv)
+
     info('filter-abund-single.py', ['counting', 'SeqAn'])
     args = sanitize_help(get_parser()).parse_args()
 

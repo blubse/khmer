@@ -52,7 +52,7 @@ import khmer
 from khmer import khmer_args
 from khmer.khmer_args import (build_counting_args, report_on_config, info,
                               add_threading_args, calculate_graphsize,
-                              sanitize_help)
+                              sanitize_help, parse_humanfriendly_mem)
 from khmer.kfile import check_file_writable
 from khmer.kfile import check_input_files
 from khmer.kfile import check_space_for_graph
@@ -101,6 +101,7 @@ def get_parser():
 
 
 def main():
+    sys.argv = parse_humanfriendly_mem(sys.argv)
 
     info('load-into-counting.py', ['counting', 'SeqAn'])
 

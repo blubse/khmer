@@ -44,7 +44,8 @@ Use '-h' for parameter help.
 
 import sys
 
-from khmer.khmer_args import build_nodegraph_args, info
+from khmer.khmer_args import (build_nodegraph_args, info,
+                              parse_humanfriendly_mem)
 from oxli import build_graph
 
 
@@ -57,6 +58,7 @@ def get_parser():
 
 
 if __name__ == '__main__':
+    sys.argv = parse_humanfriendly_mem(sys.argv)
     info('load-graph.py', ['graph', 'SeqAn'])
     build_graph.main(get_parser().parse_args())
 

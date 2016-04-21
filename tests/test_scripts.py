@@ -1651,6 +1651,28 @@ def test_abundance_dist_single_csv():
         assert line == '1001,2,98,1.0', line
 
 
+def test_abundance_dist_threaded():
+    infile = utils.get_temp_filename('test.fa')
+    outfile = utils.get_temp_filename('test.dist')
+    in_dir = os.path.dirname(infile)
+
+    shutil.copyfile(utils.get_test_data('test-abund-read-2.fa'), infile)
+
+    script = 'abundance-dist-single.py'
+    args = ['-x', '1e7', '-N', '2', '-k', '17', '-z', '--threads', '18',
+            infile, outfile]
+    (status, out, err) = utils.runscript(script, args, in_dir)
+
+    assert 'Total number of unique k-mers: 98' in err, err
+
+    with open(outfile) as fp:
+        line = fp.readline().strip()    # skip header
+        line = fp.readline().strip()
+        assert line == '1,96,96,0.98', line
+        line = fp.readline().strip()
+        assert line == '1001,2,98,1.0', line
+
+
 def test_abundance_dist_single_nobigcount():
     infile = utils.get_temp_filename('test.fa')
     outfile = utils.get_temp_filename('test.dist')
@@ -1890,7 +1912,7 @@ def test_sample_reads_randomly():
 
     script = 'sample-reads-randomly.py'
     # fix random number seed for reproducibility
-    args = ['-N', '10', '-M', '12000', '-R', '1']
+    args = ['-N', '10', '-M', '12ki', '-R', '1']
     args.append(infile)
     utils.runscript(script, args, in_dir)
 

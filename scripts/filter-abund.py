@@ -52,7 +52,8 @@ import argparse
 import sys
 from khmer.thread_utils import ThreadedSequenceProcessor, verbose_loader
 from khmer.khmer_args import (ComboFormatter, add_threading_args, info,
-                              sanitize_help, _VersionStdErrAction)
+                              sanitize_help, _VersionStdErrAction,
+                              parse_humanfriendly_mem)
 from khmer.kfile import (check_input_files, check_space,
                          add_output_compression_type, get_file_writer)
 from khmer import __version__

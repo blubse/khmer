@@ -421,6 +421,67 @@ def add_threading_args(parser):
                         help='Number of simultaneous threads to execute')
 
 
+def parse_humanfriendly_mem(argv):
+    for index, arg in enumerate(argv):
+        if(arg == '-M' or arg == '--max_mem_usage'):
+            argv[index+1] = parse_postfix(argv[index+1])
+    return argv
+
+
+def parse_postfix(arg):
+    try:
+        float(arg)
+        return arg
+    except ValueError:
+        try:
+            int(arg[:-1])
+            postfix = arg[-1:]
+            arg = int(arg[:-1])
+        except ValueError:
+            postfix = arg[-2:]
+            arg = int(arg[:-2])
+        factor = parse_SI(postfix)
+        arg = arg * factor
+        return str(arg)
+
+
+def parse_SI(postfix):
+    if postfix == 'k' or postfix == 'K':
+        return 1000**1
+    elif postfix == 'm' or postfix == 'M':
+        return 1000**2
+    elif postfix == 'g' or postfix == 'G':
+        return 1000**3
+    elif postfix == 't' or postfix == 'T':
+        return 1000**4
+    elif postfix == 'p' or postfix == 'P':
+        return 1000**5
+    elif postfix == 'e' or postfix == 'E':
+        return 1000**6
+    elif postfix == 'z' or postfix == 'Z':
+        return 1000**7
+    elif postfix == 'y' or postfix == 'Y':
+        return 1000**8
+    elif postfix == 'ki' or postfix == 'Ki':
+        return 1024**1
+    elif postfix == 'mi' or postfix == 'Mi':
+        return 1024**2
+    elif postfix == 'gi' or postfix == 'Gi':
+        return 1024**3
+    elif postfix == 'ti' or postfix == 'Ti':
+        return 1024**4
+    elif postfix == 'pi' or postfix == 'Pi':
+        return 1024**5
+    elif postfix == 'ei' or postfix == 'Ei':
+        return 1024**6
+    elif postfix == 'zi' or postfix == 'Zi':
+        return 1024**7
+    elif postfix == 'yi' or postfix == 'Yi':
+        return 1024**8
+    else:
+        raise ValueError('no known postfix')
+
+
 def sanitize_help(parser):
     """Remove Sphinx directives & reflow text to width of 79 characters."""
     wrapper = textwrap.TextWrapper(width=79)
